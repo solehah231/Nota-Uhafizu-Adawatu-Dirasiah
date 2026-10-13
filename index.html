@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahasa Arab Tahun 2 - Tajuk 4: Peralatan Sekolah</title>
+  
+  <!-- FontAwesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      font-family: 'Fredoka', sans-serif;
+      margin: 0;
+      padding: 15px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated Cheerful Background Layer */
+    .video-bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: linear-gradient(-45deg, #FF9A9E, #FECFEF, #A1C4FD, #C2E9FB, #A8EDEA);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Cheerful Shapes / Particles */
+    .bg-shape {
+      position: fixed;
+      border-radius: 50%;
+      opacity: 0.35;
+      animation: floatAnim 8s infinite ease-in-out;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .shape-1 { width: 140px; height: 140px; background: #FFD166; top: 10%; left: 8%; animation-delay: 0s; }
+    .shape-2 { width: 180px; height: 180px; background: #06D6A0; bottom: 12%; right: 6%; animation-delay: 2s; }
+    .shape-3 { width: 100px; height: 100px; background: #EF476F; top: 70%; left: 12%; animation-delay: 4s; }
+    .shape-4 { width: 120px; height: 120px; background: #118AB2; top: 15%; right: 10%; animation-delay: 1s; }
+
+    @keyframes floatAnim {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(15deg); }
+    }
+
+    .arabic-text {
+      font-family: 'Amiri', serif;
+      direction: rtl;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .slide-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      height: 620px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      border: 8px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 25px 30px;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .slide-container.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Component Styling */
+    .card-item {
+      background: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+      border: 3px solid #E2E8F0;
+      transition: all 0.25s ease;
+    }
+    .card-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+    }
+
+    /* Pronunciation Badge */
+    .phono-badge {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 2px solid #F59E0B;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .phono-highlight {
+      color: #D97706;
+      font-weight: 800;
+      text-decoration: underline;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      height: 70px;
+      background: #F8FAFC;
+      border-top: 2px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+    }
+    .nav-btn {
+      background: #2563EB;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: #1D4ED8;
+      transform: scale(1.05);
+    }
+    .nav-btn:disabled {
+      background: #CBD5E1;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .chat-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 3px solid #3B82F6;
+      border-radius: 24px;
+      padding: 16px 22px;
+      max-width: 85%;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Elements -->
+  <div class="video-bg-layer"></div>
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+  <div class="bg-shape shape-4"></div>
+
+  <div class="slide-wrapper">
+
+    <!-- SLAID 1: TAJUK UTAMA -->
+    <div class="slide-container active" id="slide1" style="background: linear-gradient(135deg, #059669 0%, #2563EB 100%); color: white; justify-content: center; align-items: center; text-align: center;">
+      <div class="bg-white/20 p-6 rounded-full mb-4 shadow-inner">
+        <i class="fa-solid fa-pen-ruler text-7xl text-yellow-300"></i>
+      </div>
+      <h1 class="arabic-text text-5xl mb-3 text-yellow-300 drop-shadow-md">أُحَافِظُ عَلَى الْأَدَوَاتِ الدِّرَاسِيَّةِ</h1>
+      <h2 class="text-3xl font-bold text-white drop-shadow">Bahasa Arab Tahun 2 (Tajuk 4)</h2>
+      <p class="text-lg font-medium mt-3 text-emerald-100 bg-black/20 px-6 py-2 rounded-full">Slaid Pembelajaran: Kalimah, Ayat Ringkas & Hiwar ✏️📚</p>
+      
+      <div class="mt-6 bg-white/10 px-5 py-2 rounded-2xl border border-white/20">
+        <p class="text-yellow-200 font-semibold text-sm">📌 Panduan Sebutan: Sebutan baris bawah menggunakan vokal <span class="underline font-bold text-white">MIS</span> & <span class="underline font-bold text-white">MIM</span> (bukan mas/mus).</p>
+      </div>
+    </div>
+
+    <!-- SLAID 2: KALIMAH (KOSA KATA 1) -->
+    <div class="slide-container" id="slide2" style="background: #FFFBEB;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-amber-900 flex items-center gap-2">
+          <span class="bg-amber-500 text-white px-3 py-1 rounded-xl text-lg">1</span> 📚 Bahagian Kalimah / Kosa Kata (الكَلِمَاتُ)
+        </h2>
+        <span class="text-sm font-bold bg-amber-200 text-amber-900 px-4 py-1.5 rounded-full">Sebut Bersama Guru</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 my-auto">
+        <!-- Pensel -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-amber-300 bg-amber-50/60">
+          <div class="text-5xl text-amber-600 mb-2"><i class="fa-solid fa-pencil"></i></div>
+          <div class="arabic-text text-4xl text-gray-800 my-1">قَلَمٌ</div>
+          <div class="phono-badge">Qa-la-mun</div>
+          <div class="text-lg font-bold text-amber-800 mt-2">Pensel</div>
+        </div>
+
+        <!-- Pembaris (MISTOROTUN) -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-amber-400 bg-amber-100/60 shadow-md">
+          <div class="text-5xl text-amber-600 mb-2"><i class="fa-solid fa-ruler-combined"></i></div>
+          <div class="arabic-text text-4xl text-emerald-700 my-1">مِسْطَرَةٌ</div>
+          <div class="phono-badge border-emerald-500 bg-emerald-100 text-emerald-900">
+            <span class="phono-highlight">Mis</span>-to-ro-tun
+          </div>
+          <div class="text-xs font-extrabold text-emerald-800 mt-1">Baris Bawah: MIS ᵢ</div>
+          <div class="text-lg font-bold text-amber-800 mt-1">Pembaris</div>
+        </div>
+
+        <!-- Pemadam (MIMHATUN) -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-amber-400 bg-amber-100/60 shadow-md">
+          <div class="text-5xl text-amber-600 mb-2"><i class="fa-solid fa-eraser"></i></div>
+          <div class="arabic-text text-4xl text-emerald-700 my-1">مِمْحَاةٌ</div>
+          <div class="phono-badge border-emerald-500 bg-emerald-100 text-emerald-900">
+            <span class="phono-highlight">Mim</span>-haa-tun
+          </div>
+          <div class="text-xs font-extrabold text-emerald-800 mt-1">Baris Bawah: MIM ᵢ</div>
+          <div class="text-lg font-bold text-amber-800 mt-1">Pemadam</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLAID 3: KALIMAH (KOSA KATA 2) -->
+    <div class="slide-container" id="slide3" style="background: #F0FDF4;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-emerald-900 flex items-center gap-2">
+          <span class="bg-emerald-600 text-white px-3 py-1 rounded-xl text-lg">2</span> ✏️ Sambungan Kosa Kata (الكَلِمَاتُ)
+        </h2>
+        <span class="text-sm font-bold bg-emerald-200 text-emerald-900 px-4 py-1.5 rounded-full">Sebut Bersama Guru</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 my-auto">
+        <!-- Buku -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-emerald-300 bg-emerald-50/60">
+          <div class="text-5xl text-emerald-600 mb-2"><i class="fa-solid fa-book"></i></div>
+          <div class="arabic-text text-4xl text-gray-800 my-1">كِتَابٌ</div>
+          <div class="phono-badge">Ki-taa-bun</div>
+          <div class="text-lg font-bold text-emerald-800 mt-2">Buku</div>
+        </div>
+
+        <!-- Bekas Pensel -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-emerald-300 bg-emerald-50/60">
+          <div class="text-5xl text-emerald-600 mb-2"><i class="fa-solid fa-box-archive"></i></div>
+          <div class="arabic-text text-4xl text-gray-800 my-1">مِقْلَمَةٌ</div>
+          <div class="phono-badge"><span class="phono-highlight">Miq</span>-la-ma-tun</div>
+          <div class="text-lg font-bold text-emerald-800 mt-2">Bekas Pensel</div>
+        </div>
+
+        <!-- Beg Sekolah -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-emerald-300 bg-emerald-50/60">
+          <div class="text-5xl text-emerald-600 mb-2"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="arabic-text text-4xl text-gray-800 my-1">حَقِيبَةٌ</div>
+          <div class="phono-badge">Ha-qii-ba-tun</div>
+          <div class="text-lg font-bold text-emerald-800 mt-2">Beg Sekolah</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLAID 4: AYAT RINGKAS (هٰذَا / هٰذِهِ) -->
+    <div class="slide-container" id="slide4" style="background: #EFF6FF;">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-bold text-blue-900 flex items-center gap-2">
+          <span class="bg-blue-600 text-white px-3 py-1 rounded-xl text-lg">3</span> 📖 Bahagian Ayat Ringkas (الْجُمَلُ الْبَسِيطَةُ)
+        </h2>
+        <span class="text-sm font-bold bg-blue-200 text-blue-900 px-4 py-1.5 rounded-full">Bacaan Murid (هٰذَا / هٰذِهِ)</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 my-auto">
+        <!-- Ayat 1 -->
+        <div class="card-item p-4 bg-white border-blue-300 flex items-center gap-4">
+          <div class="p-4 bg-blue-100 text-blue-600 rounded-2xl text-4xl"><i class="fa-solid fa-pencil"></i></div>
+          <div>
+            <div class="arabic-text text-3xl text-blue-900">هٰذَا قَلَمٌ.</div>
+            <div class="phono-badge">Haa-zaa qa-la-mun</div>
+            <div class="text-sm font-bold text-gray-600 mt-1">Ini pensel.</div>
+          </div>
+        </div>
+
+        <!-- Ayat 2 (Pembaris) -->
+        <div class="card-item p-4 bg-white border-pink-300 flex items-center gap-4">
+          <div class="p-4 bg-pink-100 text-pink-600 rounded-2xl text-4xl"><i class="fa-solid fa-ruler"></i></div>
+          <div>
+            <div class="arabic-text text-3xl text-pink-900">هٰذِهِ مِسْطَرَةٌ.</div>
+            <div class="phono-badge border-pink-400 bg-pink-50 text-pink-900">Haa-zi-hi <span class="phono-highlight">Mis</span>-to-ro-tun</div>
+            <div class="text-sm font-bold text-gray-600 mt-1">Ini pembaris.</div>
+          </div>
+        </div>
+
+        <!-- Ayat 3 -->
+        <div class="card-item p-4 bg-white border-blue-300 flex items-center gap-4">
+          <div class="p-4 bg-blue-100 text-blue-600 rounded-2xl text-4xl"><i class="fa-solid fa-book"></i></div>
+          <div>
+            <div class="arabic-text text-3xl text-blue-900">هٰذَا كِتَابٌ.</div>
+            <div class="phono-badge">Haa-zaa ki-taa-bun</div>
+            <div class="text-sm font-bold text-gray-600 mt-1">Ini buku.</div>
+          </div>
+        </div>
+
+        <!-- Ayat 4 -->
+        <div class="card-item p-4 bg-white border-pink-300 flex items-center gap-4">
+          <div class="p-4 bg-pink-100 text-pink-600 rounded-2xl text-4xl"><i class="fa-solid fa-briefcase"></i></div>
+          <div>
+            <div class="arabic-text text-3xl text-pink-900">هٰذِهِ حَقِيبَةٌ.</div>
+            <div class="phono-badge border-pink-400 bg-pink-50 text-pink-900">Haa-zi-hi ha-qii-ba-tun</div>
+            <div class="text-sm font-bold text-gray-600 mt-1">Ini beg sekolah.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLAID 5: AYAT RINGKAS 'INDI (عِنْدِي) -->
+    <div class="slide-container" id="slide5" style="background: #F3E8FF;">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-bold text-purple-900 flex items-center gap-2">
+          <span class="bg-purple-600 text-white px-3 py-1 rounded-xl text-lg">4</span> 🎒 Penggunaan "Indi" (عِنْدِي - Saya ada)
+        </h2>
+        <span class="text-sm font-bold bg-purple-200 text-purple-900 px-4 py-1.5 rounded-full">3 Ayat Pembelajaran</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 my-auto">
+        <!-- Indi 1: Pensel -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-purple-300 bg-purple-50/70">
+          <div class="text-5xl text-purple-600 mb-2"><i class="fa-solid fa-pencil"></i></div>
+          <div class="arabic-text text-3xl text-purple-900 my-1">عِنْدِي قَلَمٌ.</div>
+          <div class="phono-badge border-purple-400 bg-purple-100 text-purple-900">In-di qa-la-mun</div>
+          <div class="text-base font-bold text-purple-800 mt-2">Saya ada pensel.</div>
+        </div>
+
+        <!-- Indi 2: Pembaris -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-purple-400 bg-purple-100/80 shadow-md">
+          <div class="text-5xl text-purple-600 mb-2"><i class="fa-solid fa-ruler-combined"></i></div>
+          <div class="arabic-text text-3xl text-purple-900 my-1">عِنْدِي مِسْطَرَةٌ.</div>
+          <div class="phono-badge border-purple-500 bg-purple-200 text-purple-900">
+            In-di <span class="phono-highlight">Mis</span>-to-ro-tun
+          </div>
+          <div class="text-base font-bold text-purple-800 mt-2">Saya ada pembaris.</div>
+        </div>
+
+        <!-- Indi 3: Beg Sekolah -->
+        <div class="card-item p-5 text-center flex flex-col items-center justify-between border-purple-300 bg-purple-50/70">
+          <div class="text-5xl text-purple-600 mb-2"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="arabic-text text-3xl text-purple-900 my-1">عِنْدِي حَقِيبَةٌ.</div>
+          <div class="phono-badge border-purple-400 bg-purple-100 text-purple-900">In-di ha-qii-ba-tun</div>
+          <div class="text-base font-bold text-purple-800 mt-2">Saya ada beg sekolah.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLAID 6: HIWAR (PERBUALAN) -->
+    <div class="slide-container" id="slide6" style="background: #FEF3C7;">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-2xl font-bold text-amber-900 flex items-center gap-2">
+          <span class="bg-amber-600 text-white px-3 py-1 rounded-xl text-lg">5</span> 🗣️ Bahagian Hiwar (الْحِوَارُ - Perbualan)
+        </h2>
+        <span class="text-sm font-bold bg-amber-300 text-amber-900 px-4 py-1.5 rounded-full">Baca Bersama Rakan</span>
+      </div>
+
+      <div class="flex flex-col gap-5 my-auto px-4">
+        <!-- Dialog 1 -->
+        <div class="flex items-start gap-4">
+          <div class="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-white flex-shrink-0">
+            Ahmad
+          </div>
+          <div class="chat-bubble flex-1 border-blue-400">
+            <div class="arabic-text text-3xl text-blue-900">مَا هٰذَا؟</div>
+            <div class="phono-badge">Maa haa-zaa?</div>
+            <div class="text-xs text-gray-500 font-bold mt-1">Apakah ini?</div>
+          </div>
+        </div>
+
+        <!-- Dialog 2 -->
+        <div class="flex items-start gap-4 flex-row-reverse">
+          <div class="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-white flex-shrink-0">
+            Ali
+          </div>
+          <div class="chat-bubble flex-1 border-emerald-500 text-right">
+            <div class="arabic-text text-3xl text-emerald-900">هٰذَا كِتَابٌ.</div>
+            <div class="phono-badge border-emerald-400 bg-emerald-50 text-emerald-900">Haa-zaa ki-taa-bun</div>
+            <div class="text-xs text-gray-500 font-bold mt-1">Ini buku.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+      <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Sebelum
+      </button>
+
+      <span id="slideIndicator" class="font-bold text-gray-700 text-lg">Slaid 1 / 6</span>
+
+      <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">
+        Seterusnya <i class="fa-solid fa-arrow-right ml-2"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    function showSlide(index) {
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById(`slide${i}`);
+        if (slide) {
+          slide.classList.remove('active');
+        }
+      }
+
+      const activeSlide = document.getElementById(`slide${index}`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+      }
+
+      document.getElementById('slideIndicator').innerText = `Slaid ${index} / ${totalSlides}`;
+      document.getElementById('prevBtn').disabled = index === 1;
+      document.getElementById('nextBtn').disabled = index === totalSlides;
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 1) currentSlide = 1;
+      if (currentSlide > totalSlides) currentSlide = totalSlides;
+      showSlide(currentSlide);
+    }
+
+    window.onload = function() {
+      showSlide(1);
+    };
+  </script>
+</body>
+</html>
